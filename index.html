@@ -1,243 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRP&amp;A Collections</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <style type="text/css">
+	<meta charset="UTF-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<title>CRP&amp;A Collections</title>
+  	<link rel="preconnect" href="https://fonts.googleapis.com">
+  	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  	<style type="text/css">
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+	* {
+		margin: 0;
+	  	padding: 0;
+	  	box-sizing: border-box;
+	}
+	
+	body {
+	  	font-family: sans-serif;
+	  	display: flex;
+	  	flex-direction: column;
+	  	align-items: center;  /* Horizontally center the content */
+	  	justify-content: flex-start; /* Align content to the top */
+	  	min-height: 100vh;   /* Allow body to expand in height if content is larger */
+	 	padding: 0 20px;     /* Padding on the sides, but no padding at the top */
+	  	overflow-x: hidden;  /* Prevent horizontal overflow */
+	}
+	
+	
+	header {
+	  	margin-bottom: 20px;  /* Space between the header and gallery */
+	  	width: 100%;
+	  	max-width: 1300px; 
+	}
+	
+	nav {
+		width: 100%;
+		height: 80px;
+		padding-left: 5px;
+		padding-right: 5px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	
+	}
+	
+	nav img {
+		height: 50px;
+		width: auto;
+	}
+	
+	nav img a {
+		text-decoration: none;
+	}
+	
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+	
+	nav ul {
+		list-style: none;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		height: 80px;
+		font-weight: 600;
+	}
+	
+	nav ul li a {
+		text-transform: uppercase;
+		color: #000;
+		font-family: 'Inter', sans-serif;
+		letter-spacing: 0.18em;
+		text-decoration: none;
+		font-size: 14px;
+		padding-left: 15px;
+		padding-right: 15px;
+		font-weight: 700;
+	}
+	
+	nav ul li a:hover {
+		color: #ab2e24;
+		text-decoration: underline;
+	}
+	
+	h1 {
+	  	font-size: 28px;
+	  	letter-spacing: 0.3em;
+	  	color: #ab2e24;
+	  	text-align: center;
+	  	font-family: 'Inter', sans-serif;
+	 	text-transform: uppercase;
+	  	font-weight: 700;
+	  	margin: 0;  /* Remove default margin */
+	  	padding-top: 16px;
+	}
+	
+	.gallery {
+	  	display: grid;
+	  	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	  	gap: 16px;
+	  	margin: 0;
+	  	max-width: 1200px;       /* Limit the width of the gallery */
+	  	width: 100%;             /* Make it take up the full width within the max-width constraint */
+	}
+	
+	
+	.gallery-item {
+	  	position: relative;
+	  	display: block;
+	  	overflow: hidden;
+	  	text-decoration: none;
+	  	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+	  	height: 250px;  /* Fixed height for each gallery item */
+	  	display: flex;
+	  	flex-direction: column;
+	  	justify-content: space-between;
+	}
+	
+	.gallery-image {
+	  	width: 100%;
+	  	height: 175px;
+	  	object-fit: cover;
+	  	display: block;
+	  	filter: grayscale(100%);
+	  	transition: opacity 0.5s ease-out;
+	}
+	
+	.gallery-image-hover {
+	  	width: 100%;
+	  	height: 175px;
+	  	object-fit: cover;
+	  	opacity: 0; /* Initially hide the hover image */
+	  	position: absolute;
+	  	top: 0;
+	  	left: 0;
+	  	filter: grayscale(100%);
+	  	transition: opacity 0.5s ease-in;
+	}
+	
+	.gallery-item:hover .gallery-image {
+	  	opacity: 0; /* Hide the first image on hover */
+	}
+	
+	.gallery-item:hover .gallery-image-hover {
+	  	opacity: 1; /* Show the second image on hover */
+	}
+	
+	.gallery-caption {
+	  	color: #000;
+	  	padding: 15px;
+	  	font-size: 13px;
+	  	font-family: 'Inter',sans-serif;
+	  	letter-spacing: 3px;
+	  	text-align: center;
+	  	width: 100%;  /* Ensure the caption takes up the full width */
+	  	text-transform: uppercase;
+	  	font-weight: 700;
+	  	position: relative;
+	 	height: 75px;  /* Fixed height for the caption */
+	  	text-decoration: none;
+	  	display: flex;              /* Make the caption a flex container */
+	  	justify-content: center;    /* Horizontally center text */
+	  	align-items: center;        /* Vertically center text */
+	}
+	
+	.gallery-item:hover .gallery-caption {
+	  	color: #ab2e24;
+	  	font-weight: 900;
+	  	transition: font-weight 0.5s ease-in-out;
+	}
 
-body {
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;  /* Horizontally center the content */
-  justify-content: flex-start; /* Align content to the top */
-  min-height: 100vh;   /* Allow body to expand in height if content is larger */
-  padding: 0 20px;     /* Padding on the sides, but no padding at the top */
-  overflow-x: hidden;  /* Prevent horizontal overflow */
-}
-
-
-header {
-  margin-bottom: 20px;  /* Space between the header and gallery */
-  width: 100%;
-  max-width: 1300px; 
-}
-
-nav {
-	width: 100%;
-	height: 80px;
-	padding-left: 5px;
-	padding-right: 5px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-}
-
-nav img {
-height: 50px;
-width: auto;
-}
-
-nav img a {
-text-decoration: none;
-}
-
-ul {
-	margin: 0;
-	padding: 0;
-}
-
-nav ul {
-	list-style: none;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	height: 80px;
-	font-weight: 600;
-}
-
-nav ul li a {
-	text-transform: uppercase;
-	color: #000;
-	font-family: 'Inter', sans-serif;
-	letter-spacing: 0.18em;
-	text-decoration: none;
-	font-size: 14px;
-	padding-left: 15px;
-	padding-right: 15px;
-	font-weight: 700;
-}
-
-nav ul li a:hover {
-	color: #ab2e24;
-	text-decoration: underline;
-}
-
-h1 {
-  font-size: 28px;
-  letter-spacing: 0.3em;
-  color: #ab2e24;
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin: 0;  /* Remove default margin */
-  padding-top: 16px;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  margin: 0;
-  max-width: 1200px;       /* Limit the width of the gallery */
-  width: 100%;             /* Make it take up the full width within the max-width constraint */
-}
-
-
-.gallery-item {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  text-decoration: none;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  height: 250px;  /* Fixed height for each gallery item */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.gallery-image {
-  width: 100%;
-  height: 175px;
-  object-fit: cover;
-  display: block;
-  filter: grayscale(100%);
-  transition: opacity 0.5s ease-out;
-}
-
-.gallery-image-hover {
-  width: 100%;
-  height: 175px;
-  object-fit: cover;
-  opacity: 0; /* Initially hide the hover image */
-  position: absolute;
-  top: 0;
-  left: 0;
-  filter: grayscale(100%);
-  transition: opacity 0.5s ease-in;
-}
-
-.gallery-item:hover .gallery-image {
-  opacity: 0; /* Hide the first image on hover */
-}
-
-.gallery-item:hover .gallery-image-hover {
-  opacity: 1; /* Show the second image on hover */
-}
-
-.gallery-caption {
-  color: #000;
-  padding: 15px;
-  font-size: 13px;
-  font-family: 'Inter',sans-serif;
-  letter-spacing: 3px;
-  text-align: center;
-  width: 100%;  /* Ensure the caption takes up the full width */
-  text-transform: uppercase;
-  font-weight: 700;
-  position: relative;
-  height: 75px;  /* Fixed height for the caption */
-  text-decoration: none;
-  display: flex;              /* Make the caption a flex container */
-  justify-content: center;    /* Horizontally center text */
-  align-items: center;        /* Vertically center text */
-}
-
-.gallery-item:hover .gallery-caption {
-  color: #ab2e24;
-  font-weight: 900;
-  transition: font-weight 0.5s ease-in-out;
-}
-
-</style>
+	</style>
 </head>
 <body>
-  <header>
-	<nav>
-		<a href="https://railphoto.historyit.com/public-sites/home/digital-museum--staging"><img src="https://railphoto-art.org/wp-content/uploads/2025/03/logo-1.png" alt="CRP&A" /></a>
-		<ul>
-			<li><a href="https://railphoto.historyit.com/public-sites/explore/digital-museum--staging?hsxezn=kezfcv">Explore</a>&vert;</li>
-			<li><a href="https://railphoto.historyit.com/public-sites/gallery/digital-museum--staging/21?hsxezn=kezfcv">Browse Images</a>&vert;</li>
-			<li><a href="https://railphoto.historyit.com/public-sites/featured-exhibit/digital-museum--staging?hsxezn=kezfcv">Featured Gallery</a>&vert;</li>
-			<li><a href="https://railphoto.historyit.com/public-sites/biography/digital-museum--staging?hsxezn=kezfcv">Feedback</a>&vert;</li>
-			<li><a href="https://railphoto-art.org/collections/">About the CRP&amp;A</a></li>
-		</ul>
-	</nav>
-    <h1>CRP&amp;A Digital Collections</h1>
-  </header>
-  <div class="gallery">
-    <!-- ABBEY! -->
-    <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67227&ip=1" class="gallery-item">
-      <img src="https://live.staticflickr.com/1682/25651697505_0b99071a0a_k.jpg" alt="train photo by Wallace Abbey" class="gallery-image">
-	  <img src="https://railphoto-art.org/wp-content/uploads/2012/10/Abbey-1950-self.jpg" alt="Wallace Abbey self portrait" class="gallery-image-hover" style="  object-position: top;">
-      <p class="gallery-caption">Wallace W. Abbey Collection</p>
-    </a>
+	<header>
+		<nav>
+			<a href="https://railphoto.historyit.com/public-sites/home/digital-museum--staging"><img src="https://railphoto-art.org/wp-content/uploads/2025/03/logo-1.png" alt="CRP&A" /></a>
+			<ul>
+				<li><a href="https://railphoto.historyit.com/public-sites/explore/digital-museum--staging?hsxezn=kezfcv">Explore</a>&vert;</li>
+				<li><a href="https://railphoto.historyit.com/public-sites/gallery/digital-museum--staging/21?hsxezn=kezfcv">Browse Images</a>&vert;</li>
+				<li><a href="https://railphoto.historyit.com/public-sites/featured-exhibit/digital-museum--staging?hsxezn=kezfcv">Featured Gallery</a>&vert;</li>
+				<li><a href="https://railphoto.historyit.com/public-sites/biography/digital-museum--staging?hsxezn=kezfcv">Feedback</a>&vert;</li>
+				<li><a href="https://railphoto-art.org/collections/">About the CRP&amp;A</a></li>
+			</ul>
+		</nav>
+    		<h1>CRP&amp;A Digital Collections</h1>
+ 	 </header>
+	<div class="gallery">
+		
+    		<!-- ABBEY! -->
+    		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67227&ip=1" class="gallery-item">
+      			<img src="#" alt="train photo by Wallace Abbey" class="gallery-image">
+	  		<img src="#" alt="Wallace Abbey self portrait" class="gallery-image-hover" style="object-position: top;">
+      			<p class="gallery-caption">Wallace W. Abbey Collection</p>
+    		</a>
 	
-	<!-- BJORKLUND !-->
-    <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67249&ip=1" class="gallery-item">
-      <img src="https://live.staticflickr.com/8055/8135501365_bd15f12bf6_b.jpg" alt="Collection 2" class="gallery-image">
-	  <img src="https://farm9.staticflickr.com/8473/8135481949_2c70630596_c.jpg" alt="Wallace Abbey self portrait" class="gallery-image-hover">
-      <p class="gallery-caption">John F. Bjorklund Collection</p>
-    </a>
+		<!-- BJORKLUND !-->
+    		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67249&ip=1" class="gallery-item">
+      			<img src="#" alt="Collection 2" class="gallery-image">
+	  		<img src="#" alt="Wallace Abbey self portrait" class="gallery-image-hover">
+      			<p class="gallery-caption">John F. Bjorklund Collection</p>
+    		</a>
 	
-	<!-- BOTKIN K !-->
-    <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67252&ip=1" class="gallery-item">
-      <img src="https://railphoto-art.org/wp-content/plugins/justified-image-grid/timthumb.php?src=https%3A%2F%2Flive.staticflickr.com%2F65535%2F49024851778_f95bf1e430_h.jpg&h=310&q=90&f=.jpg" alt="Collection 3" class="gallery-image">
-	  <img src="https://railphoto-art.org/wp-content/uploads/2019/11/Kate-Botkin-Headshot-1.jpg" alt="Kate Botkin headshot" class="gallery-image-hover">
-      <p class="gallery-caption">Katherine Botkin Collection</p>
-    </a>
+		<!-- BOTKIN K !-->
+    		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67252&ip=1" class="gallery-item">
+      			<img src="#" alt="Collection 3" class="gallery-image">
+	  		<img src="https://railphoto-art.org/wp-content/uploads/2019/11/Kate-Botkin-Headshot-1.jpg" alt="Kate Botkin headshot" class="gallery-image-hover">
+      			<p class="gallery-caption">Katherine Botkin Collection</p>
+    		</a>
 	
-	<!-- BOTKIN W !-->
-	<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67228&ip=1" class="gallery-item">
-      <img src="https://railphoto-art.org/wp-content/plugins/justified-image-grid/timthumb.php?src=https%3A%2F%2Flive.staticflickr.com%2F65535%2F49025592432_9cfd351f22_h.jpg&h=310&q=90&f=.jpg" alt="Collection 3" class="gallery-image">
-	  <img src="https://railphoto-art.org/wp-content/uploads/2023/03/Bill-Botkin-468x700.jpg" alt="Collection 3" class="gallery-image-hover">
-      <p class="gallery-caption">William Botkin Collection</p>
-    </a>
+		<!-- BOTKIN W !-->
+		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67228&ip=1" class="gallery-item">
+      			<img src="#" alt="Collection 3" class="gallery-image">
+	  		<img src="#" alt="Collection 3" class="gallery-image-hover">
+      			<p class="gallery-caption">William Botkin Collection</p>
+    		</a>
 	
-	<!-- FURLER !-->
-	<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67236&ip=1" class="gallery-item">
-      <img src="https://live.staticflickr.com/878/42427013702_aa385697e6_k.jpg" alt="Collection 3" class="gallery-image">
-	  <img src="https://railphoto-art.org/wp-content/uploads/2012/10/furler-camera.jpg" alt="Collection 3" class="gallery-image-hover" style="  object-position: top;">
-      <p class="gallery-caption">Donald W. Furler Collection</p>
-    </a>
+		<!-- FURLER !-->
+		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67236&ip=1" class="gallery-item">
+     			<img src="#" alt="Collection 3" class="gallery-image">
+	  		<img src="#" alt="Collection 3" class="gallery-image-hover" style="  object-position: top;">
+      			<p class="gallery-caption">Donald W. Furler Collection</p>
+    		</a>
 	
-	<!-- HADLEY !-->
-	<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67262&ip=1" class="gallery-item">
-      <img src="https://live.staticflickr.com/4559/37968641585_7b20bf8aeb_k.jpg" alt="Collection 3" class="gallery-image">
-	  <img src="https://railphoto-art.org/wp-content/uploads/2017/11/Hadley-portrait-497x700.jpg" alt="Collection 3" class="gallery-image-hover">
-      <p class="gallery-caption">Robert A. Hadley Collection</p>
-    </a>
+		<!-- HADLEY !-->
+		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67262&ip=1" class="gallery-item">
+      			<img src="#" alt="Collection 3" class="gallery-image">
+	  		<img src="#" alt="Collection 3" class="gallery-image-hover">
+      			<p class="gallery-caption">Robert A. Hadley Collection</p>
+    		</a>
 	
-	<!-- HAND !-->
-	<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67225&ip=1" class="gallery-item">
-      <img src="https://railphoto-art.org/wp-content/uploads/2019/05/post-700x556.jpg" alt="Collection" class="gallery-image">
-	  <img src="https://railphoto-art.org/wp-content/uploads/2018/11/victor-hand.jpg" alt="Collection" class="gallery-image-hover">
-      <p class="gallery-caption">Victor Hand Collection</p>
-    </a>
+		<!-- HAND !-->
+		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67225&ip=1" class="gallery-item">
+      			<img src="#" alt="Collection" class="gallery-image">
+	  		<img src="#" alt="Collection" class="gallery-image-hover">
+      			<p class="gallery-caption">Victor Hand Collection</p>
+    		</a>
 
-  </div>
+		<!-- KING !-->
+		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67254&ip=1" class="gallery-item">
+			<img src="#" alt="Collection" class="gallery-image">
+		  	<img src="#" alt="Collection" class="gallery-image-hover">
+	      		<p class="gallery-caption">Leo King Collection</p>
+	    	</a>
+
+	</div>
   
 </body>
 </html>
