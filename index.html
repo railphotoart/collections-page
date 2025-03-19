@@ -1,407 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
- 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<title>Browse Collections</title>
-  	<link rel="preconnect" href="https://fonts.googleapis.com">
-  	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-	<link rel="icon" href="favicon.png" type="image/x-icon">
-  	<style type="text/css">
-
-	* {
-		margin: 0;
-	  	padding: 0;
-	  	box-sizing: border-box;
-	}
-	
-	body {
-	  	font-family: sans-serif;
-	  	display: flex;
-	  	flex-direction: column;
-	  	align-items: center;  /* Horizontally center the content */
-	  	justify-content: flex-start; /* Align content to the top */
-	  	min-height: 100vh;   /* Allow body to expand in height if content is larger */
-	 	padding: 0 20px;     /* Padding on the sides, but no padding at the top */
-	  	overflow-x: hidden;  /* Prevent horizontal overflow */
-	}
-	
-	
-	header {
-	  	margin-bottom: 50px;  /* Space between the header and gallery */
-	  	width: 100%;
-	  	max-width: 1300px; 
-	}
-	
-	nav {
-		width: 100%;
-		height: 80px;
-		padding-left: 5px;
-		padding-right: 5px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	
-	}
-	
-	nav img {
-		height: 50px;
-		width: auto;
-	}
-	
-	nav img a {
-		text-decoration: none;
-	}
-	
-	ul {
-		margin: 0;
-		padding: 0;
-	}
-	
-	nav ul {
-		list-style: none;
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		height: 80px;
-		font-weight: 600;
-		background-color: white;
-	}
-	
-	nav ul li a {
-		text-transform: uppercase;
-		color: #000;
-		font-family: 'Inter', sans-serif;
-		letter-spacing: 0.18em;
-		text-decoration: none;
-		font-size: 14px;
-		padding-left: 15px;
-		padding-right: 15px;
-		font-weight: 700;
-	}
-	
-	nav ul li a:hover {
-		color: #ab2e24;
-		text-decoration: underline;
-	}
-	
-	h1 {
-	  	font-size: 28px;
-	  	letter-spacing: 0.3em;
-	  	color: #ab2e24;
-	  	text-align: center;
-	  	font-family: 'Inter', sans-serif;
-	 	text-transform: uppercase;
-	  	font-weight: 700;
-	  	margin: 0;  /* Remove default margin */
-	  	padding-top: 16px;
-	}
-	
-	.gallery {
-	  	display: grid;
-	  	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	  	gap: 16px;
-	  	margin: 0;
-	  	max-width: 1200px;       /* Limit the width of the gallery */
-	  	width: 100%;             /* Make it take up the full width within the max-width constraint */
-	}
-	
-	
-	.gallery-item {
-	  	position: relative;
-	  	display: block;
-	  	overflow: hidden;
-	  	text-decoration: none;
-	  	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-	  	height: 250px;  /* Fixed height for each gallery item */
-	  	display: flex;
-	  	flex-direction: column;
-	  	justify-content: space-between;
-	}
-
-	.gallery-item:hover {
-		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
-	}
-	
-	.gallery-image {
-	  	width: 100%;
-	  	height: 175px;
-	  	object-fit: cover;
-	  	display: block;
-	  	transition: opacity 0.5s ease-out;
-	}
-	
-	.gallery-image-hover {
-	  	width: 100%;
-	  	height: 175px;
-	  	object-fit: cover;
-	  	opacity: 0; /* Initially hide the hover image */
-	  	position: absolute;
-	  	top: 0;
-	  	left: 0;
-	  	filter: grayscale(100%);
-	  	transition: opacity 0.5s ease-in;
-	}
-	
-	.gallery-item:hover .gallery-image {
-	  	opacity: 0; /* Hide the first image on hover */
-	}
-	
-	.gallery-item:hover .gallery-image-hover {
-	  	opacity: 1; /* Show the second image on hover */
-	}
-	
-	.gallery-caption {
-	  	color: #000;
-	  	padding: 15px;
-	  	font-size: 13px;
-	  	font-family: 'Inter',sans-serif;
-	  	letter-spacing: 3px;
-	  	text-align: center;
-	  	width: 100%;  /* Ensure the caption takes up the full width */
-	  	text-transform: uppercase;
-	  	font-weight: 700;
-	  	position: relative;
-	 	height: 75px;  /* Fixed height for the caption */
-	  	text-decoration: none;
-	  	display: flex;              /* Make the caption a flex container */
-	  	justify-content: center;    /* Horizontally center text */
-	  	align-items: center;        /* Vertically center text */
-	}
-	
-	.gallery-item:hover .gallery-caption {
-	  	color: #ab2e24;
-	  	font-weight: 900;
-	  	transition: font-weight 0.5s ease-in-out;
-	}
-
-	footer {
-		font-size: 13px;
-		padding-top: 50px;
-		padding-bottom: 25px;
-		align-items: left;
-	}
-
-	footer a {
-		color: black;
-	}
-
-	footer a:hover {
-		color: #ab2e24;
-	}
-	
-	.topnav .icon {
-	  display: none;
-	}
-
-	@media screen and (max-width: 900px) {
-	  .topnav ul {display: none;}
-	  .topnav a.icon {
-		float: right;
-		display: block;
-		text-decoration: none;
-		color: black;
-		font-size: 42px;
-	  }
-	}
-
-	@media screen and (max-width: 900px) {
-	  .topnav.responsive {
-		position: relative;
-	  }
-	  
-	  .topnav.responsive .icon {
-		position: relative;
-		right: 0;
-		top: 0;
-		
-	  }
-	  .topnav.responsive ul {
-		display: block;
-		color: white;
-		position: absolute;
-		top: 20px;
-		right: 0;
-		width: 60%;
-		height: auto;
-		background-color: white;
-		border: solid black;
-	  }
-	  
-	  .topnav.responsive ul li a{
-		color: black;
-		font-size: 1.2em;
-		font-family: 'Inter',sans-serif;
-		line-height: 2em;
-		letter-spacing: normal;
-		
-	  }
-	  
-	  .topnav.responsive ul li a:hover{
-		color: #ab2e24;
-	  }
-	}
-
-	</style>
-</head>
-<body>
-	<header>
-		<nav class="topnav" id="myTopnav">
-			<a href="https://railphoto.historyit.com/public-sites/home/digital-museum--staging"><img src="https://railphoto-art.org/wp-content/uploads/2025/03/logo-1.png" alt="CRP&A" /></a>
-			<ul>
-				<li><a href="https://railphoto.historyit.com/public-sites/explore/digital-museum--staging?hsxezn=kezfcv">Explore Topics</a>&vert;</li>
-				<li><a href="https://railphoto.historyit.com/public-sites/gallery/digital-museum--staging/21?hsxezn=kezfcv">Browse Images</a>&vert;</li>
-				<li><a href="https://railphotoart.github.io/collections-page/">Browse Collections</a></li>
-			</ul>
-			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
-			&#9776;
-			</a>
-		</nav>
-    		<h1>Browse Collections</h1>
- 	 </header>
-	<div class="gallery">
-		
-    		<!-- ABBEY! -->
-    		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67227&ip=1" class="gallery-item">
-      			<img src="gallery-images/abbey-photo.jpg" alt="train photo by Wallace Abbey" class="gallery-image">
-	  		<img src="gallery-images/abbey-portrait.jpg" alt="portrait of Wallace Abbey with camera" class="gallery-image-hover" style="object-position: top;">
-      			<p class="gallery-caption">Wallace W. Abbey Collection</p>
-    		</a>
-	
-		<!-- BJORKLUND !-->
-    		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67249&ip=1" class="gallery-item">
-      			<img src="gallery-images/bjorklund-photo.jpg" alt="train photo by John Bjorklund" class="gallery-image">
-	  		<img src="gallery-images/bjorklund-portrait.jpg" alt="portrait of John Bjorklund and another man" class="gallery-image-hover">
-      			<p class="gallery-caption">John F. Bjorklund Collection</p>
-    		</a>
-	
-		<!-- BOTKIN K !-->
-    		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67252&ip=1" class="gallery-item">
-      			<img src="gallery-images/botkink-photo.jpg" alt="train photo by Kate Botkin" class="gallery-image">
-	  		<img src="gallery-images/botkink-portrait.jpg" alt="Kate Botkin headshot" class="gallery-image-hover">
-      			<p class="gallery-caption">Kate Botkin Collection</p>
-    		</a>
-	
-		<!-- BOTKIN W !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67228&ip=1" class="gallery-item">
-      			<img src="gallery-images/botkinw-photo.jpg" alt="train photo by William Botkin" class="gallery-image">
-	  		<img src="gallery-images/botkinw-portrait.jpg" alt="William Botkin headshot" class="gallery-image-hover">
-      			<p class="gallery-caption">William Botkin Collection</p>
-    		</a>
-	
-		<!-- FURLER !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67236&ip=1" class="gallery-item">
-     			<img src="gallery-images/furler-photo.jpg" alt="train photo by Donald Furler" class="gallery-image">
-	  		<img src="gallery-images/furler-portrait.jpg" alt="portrait of Donald Furler with camera" class="gallery-image-hover" style="object-position: top;">
-      			<p class="gallery-caption">Donald W. Furler Collection</p>
-    		</a>
-
-		<!-- GRUBER !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67250&ip=1" class="gallery-item">
-     			<img src="gallery-images/gruber-photo.jpg" alt="train photo with children running by John Gruber" class="gallery-image">
-	  		<img src="gallery-images/gruber-portrait.jpg" alt="portrait of John Gruber with camera" class="gallery-image-hover">
-      			<p class="gallery-caption">John Gruber Collection</p>
-    		</a>
-		
-		<!-- HADLEY !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67262&ip=1" class="gallery-item">
-      			<img src="gallery-images/hadley-photo.jpg" alt="train photo by Robert Hadley" class="gallery-image">
-	  		<img src="gallery-images/hadley-portrait.jpg" alt="portrait of Robert Hadley by train" class="gallery-image-hover">
-      			<p class="gallery-caption">Robert A. Hadley Collection</p>
-    		</a>
-	
-		<!-- HAND !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67225&ip=1" class="gallery-item">
-      			<img src="gallery-images/hand-photo.jpg" alt="train photo by Victor Hand" class="gallery-image">
-	  		<img src="gallery-images/hand-portrait.jpg" alt="portrait of Victor Hand signing a book" class="gallery-image-hover">
-      			<p class="gallery-caption">Victor Hand Collection</p>
-    		</a>
-
-		<!-- ILLMAN !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67248&ip=1" class="gallery-item">
-      			<img src="gallery-images/illman-photo.jpg" alt="train photo by John Illman" class="gallery-image">
-	  		<img src="gallery-images/illman-portrait.jpg" alt="portrait of John Illman in a cab" class="gallery-image-hover">
-      			<p class="gallery-caption">John C. Illman Collection</p>
-    		</a>
-
-		<!-- KING !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67254&ip=1" class="gallery-item">
-			<img src="gallery-images/king-photo.jpg" alt="train photo by Leo King" class="gallery-image">
-		  	<img src="gallery-images/king-portrait.jpg" alt="portrait of Leo King in a cab" class="gallery-image-hover">
-	      		<p class="gallery-caption">Leo King Collection</p>
-	    	</a>
-
-		<!-- LAMB !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67245&ip=1" class="gallery-item">
-			<img src="gallery-images/lamb-photo.jpg" alt="train photo by J. Parker Lamb" class="gallery-image">
-		  	<img src="gallery-images/lamb-portrait.jpg" alt="portrait of J. Parker Lamb" class="gallery-image-hover" style="object-position: top;">
-	      		<p class="gallery-caption">J. Parker Lamb Collection</p>
-	    	</a>
-
-		<!--  MAINEY !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67235&ip=1" class="gallery-item">
-			<img src="gallery-images/mainey-photo.jpg" alt="train photo by David Mainey" class="gallery-image">
-		  	<img src="gallery-images/mainey-portrait.jpg" alt="portrait of David Mainey in a cab" class="gallery-image-hover">
-	      		<p class="gallery-caption">David T. Mainey Collection</p>
-	    	</a>
-
-		<!-- MCILWRAITH !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67267&ip=1" class="gallery-item">
-			<img src="gallery-images/mcilwraith-photo.jpg" alt="train photo by Thomas McIlwraith" class="gallery-image">
-		  	<img src="gallery-images/mcilwraith-portrait.jpg" alt="portrait of Thomas McIlwraith" class="gallery-image-hover" style="object-position: top;">
-	      		<p class="gallery-caption">Thomas F. McIlwraith Collection</p>
-	    	</a>
-
-		<!-- POSNER !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67244&ip=1" class="gallery-item">
-			<img src="gallery-images/posner-photo.jpg" alt="train photo by Henry Posner III" class="gallery-image">
-		  	<img src="gallery-images/posner-portrait.jpg" alt="portrait of Henry Posner III" class="gallery-image-hover">
-	      		<p class="gallery-caption">Henry Posner III Collection</p>
-	    	</a>
-
-		<!-- ROSE !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67266&ip=1" class="gallery-item">
-			<img src="gallery-images/rose-photo.jpg" alt="train photo by Ted Rose" class="gallery-image">
-		  	<img src="gallery-images/rose-portrait.jpg" alt="group photo including Ted Rose" class="gallery-image-hover" style="object-position: top;">
-	      		<p class="gallery-caption">Ted Rose Collection</p>
-	    	</a>
-
-		<!-- SHAUGHNESSY !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67247&ip=1" class="gallery-item">
-			<img src="gallery-images/shaughnessy-photo.jpg" alt="train photo by Jim Shaughnessy" class="gallery-image">
-		  	<img src="gallery-images/shaughnessy-portrait.jpg" alt="portrait of Jim Shaughnessy" class="gallery-image-hover" style="object-position: top;">
-	      		<p class="gallery-caption">Jim Shaughnessy Collection</p>
-	    	</a>
-
-		<!-- SPRINGER !-->
-		<a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67237&ip=1" class="gallery-item">
-			<img src="gallery-images/springer-photo.jpg" alt="train photo by Fred Springer" class="gallery-image">
-		  	<img src="gallery-images/springer-portrait.jpg" alt="portrait of Fred Springer leaning out of a train" class="gallery-image-hover">
-	      		<p class="gallery-caption">Fred M. Springer Collection</p>
-	    	</a>
-
-		
-
-	</div>
-	
-	<footer>
-		<p><a href="https://railphoto.historyit.com/public-sites/contact/digital-museum--staging">Contact Us</a> with Questions or Comments</p>
-		<br>
-		<p><b>Copyright © 2025 Center for Railroad Photography and Art. For more information on usage and permissions, see our website: <a href="https://railphoto-art.org/collections/" target="_blank">https://railphoto-art.org/collections/</a></b></p>
-	</footer>
-
-
-<script>
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-</script>
-
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Browse Collections</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link rel="icon" href="favicon.png" type="image/x-icon">
+        <style type="text/css">
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            }
+            body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;  /* Horizontally center the content */
+            justify-content: flex-start; /* Align content to the top */
+            min-height: 100vh;   /* Allow body to expand in height if content is larger */
+            padding: 0 20px;     /* Padding on the sides, but no padding at the top */
+            overflow-x: hidden;  /* Prevent horizontal overflow */
+            }
+            header {
+            margin-bottom: 50px;  /* Space between the header and gallery */
+            width: 100%;
+            max-width: 1300px; 
+            }
+            nav {
+            width: 100%;
+            height: 80px;
+            padding-left: 5px;
+            padding-right: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            }
+            nav img {
+            height: 50px;
+            width: auto;
+            }
+            nav img a {
+            text-decoration: none;
+            }
+            ul {
+            margin: 0;
+            padding: 0;
+            }
+            nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 80px;
+            font-weight: 600;
+            background-color: white;
+            }
+            nav ul li a {
+            text-transform: uppercase;
+            color: #000;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.18em;
+            text-decoration: none;
+            font-size: 14px;
+            padding-left: 15px;
+            padding-right: 15px;
+            font-weight: 700;
+            }
+            nav ul li a:hover {
+            color: #ab2e24;
+            text-decoration: underline;
+            }
+            h1 {
+            font-size: 28px;
+            letter-spacing: 0.3em;
+            color: #ab2e24;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin: 0;  /* Remove default margin */
+            padding-top: 16px;
+            }
+            .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 0;
+            max-width: 1200px;       /* Limit the width of the gallery */
+            width: 100%;             /* Make it take up the full width within the max-width constraint */
+            }
+            .gallery-item {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            text-decoration: none;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            height: 250px;  /* Fixed height for each gallery item */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            }
+            .gallery-item:hover {
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+            }
+            .gallery-image {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.5s ease-out;
+            }
+            .gallery-image-hover {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+            opacity: 0; /* Initially hide the hover image */
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: grayscale(100%);
+            transition: opacity 0.5s ease-in;
+            }
+            .gallery-item:hover .gallery-image {
+            opacity: 0; /* Hide the first image on hover */
+            }
+            .gallery-item:hover .gallery-image-hover {
+            opacity: 1; /* Show the second image on hover */
+            }
+            .gallery-caption {
+            color: #000;
+            padding: 15px;
+            font-size: 13px;
+            font-family: 'Inter',sans-serif;
+            letter-spacing: 3px;
+            text-align: center;
+            width: 100%;  /* Ensure the caption takes up the full width */
+            text-transform: uppercase;
+            font-weight: 700;
+            position: relative;
+            height: 75px;  /* Fixed height for the caption */
+            text-decoration: none;
+            display: flex;              /* Make the caption a flex container */
+            justify-content: center;    /* Horizontally center text */
+            align-items: center;        /* Vertically center text */
+            }
+            .gallery-item:hover .gallery-caption {
+            color: #ab2e24;
+            font-weight: 900;
+            transition: font-weight 0.5s ease-in-out;
+            }
+            footer {
+            font-size: 13px;
+            padding-top: 50px;
+            padding-bottom: 25px;
+            align-items: left;
+            }
+            footer a {
+            color: black;
+            }
+            footer a:hover {
+            color: #ab2e24;
+            }
+            .topnav .icon {
+            display: none;
+            }
+            .topnav #close-icon {
+            display: none;
+            }
+            @media screen and (max-width: 900px) {
+            .topnav ul {display: none;}
+            .topnav a.icon {
+            float: right;
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-size: 42px;
+            }
+            }
+            @media screen and (max-width: 900px) {
+            .topnav.responsive {
+            position: relative;
+            }
+            .topnav.responsive .icon {
+            position: relative;
+            }
+            .topnav #close-icon {
+            display: flex;
+            color: #800000;
+            text-decoration: none;
+            font-size: 26px;
+            font-weight: 400;
+            }
+            .topnav.responsive ul {
+            display: block;
+            color: white;
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 100;
+            width: 306px;
+            height: auto;
+            background-color: white;
+            margin-left: 20px;
+            }
+            .topnav.responsive ul li {
+            border-left: 3px solid #800000;
+            }
+            .topnav.responsive ul li a{
+            color: black;
+            font-size: 1em;
+            font-family: 'Inter',sans-serif;
+            line-height: 2.5em;
+            letter-spacing: normal;
+            font-weight: 600;
+            }
+            .topnav.responsive ul li a:hover{
+            color: #800000;
+            }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav class="topnav" id="myTopnav">
+                <a href="https://railphoto.historyit.com/public-sites/home/digital-museum--staging">
+                <img src="https://railphoto-art.org/wp-content/uploads/2025/03/logo-1.png" alt="CRP&A"/>
+                </a>
+                <ul>
+                    <li>
+                        <a href="javascript:void(0);" id="close-icon" onclick="myFunction()">&#10005;</a>
+                    <li>
+                        <a href="https://railphoto.historyit.com/public-sites/explore/digital-museum--staging?hsxezn=kezfcv">Explore Topics</a>&vert;
+                    </li>
+                    <li>
+                        <a href="https://railphoto.historyit.com/public-sites/gallery/digital-museum--staging/21?hsxezn=kezfcv">Browse Images</a>&vert;
+                    </li>
+                    <li>
+                        <a href="https://railphotoart.github.io/collections-page/">Browse Collections</a>
+                    </li>
+                </ul>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                &#9776;
+                </a>
+            </nav>
+            <h1>Browse Collections</h1>
+        </header>
+        <div class="gallery">
+            <!-- ABBEY! -->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67227&ip=1" class="gallery-item">
+                <img src="gallery-images/abbey-photo.jpg" alt="train photo by Wallace Abbey" class="gallery-image">
+                <img src="gallery-images/abbey-portrait.jpg" alt="portrait of Wallace Abbey with camera" class="gallery-image-hover" style="object-position: top;">
+                <p class="gallery-caption">Wallace W. Abbey Collection</p>
+            </a>
+            <!-- BJORKLUND !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67249&ip=1" class="gallery-item">
+                <img src="gallery-images/bjorklund-photo.jpg" alt="train photo by John Bjorklund" class="gallery-image">
+                <img src="gallery-images/bjorklund-portrait.jpg" alt="portrait of John Bjorklund and another man" class="gallery-image-hover">
+                <p class="gallery-caption">John F. Bjorklund Collection</p>
+            </a>
+            <!-- BOTKIN K !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67252&ip=1" class="gallery-item">
+                <img src="gallery-images/botkink-photo.jpg" alt="train photo by Kate Botkin" class="gallery-image">
+                <img src="gallery-images/botkink-portrait.jpg" alt="Kate Botkin headshot" class="gallery-image-hover">
+                <p class="gallery-caption">Kate Botkin Collection</p>
+            </a>
+            <!-- BOTKIN W !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67228&ip=1" class="gallery-item">
+                <img src="gallery-images/botkinw-photo.jpg" alt="train photo by William Botkin" class="gallery-image">
+                <img src="gallery-images/botkinw-portrait.jpg" alt="William Botkin headshot" class="gallery-image-hover">
+                <p class="gallery-caption">William Botkin Collection</p>
+            </a>
+            <!-- FURLER !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67236&ip=1" class="gallery-item">
+                <img src="gallery-images/furler-photo.jpg" alt="train photo by Donald Furler" class="gallery-image">
+                <img src="gallery-images/furler-portrait.jpg" alt="portrait of Donald Furler with camera" class="gallery-image-hover" style="object-position: top;">
+                <p class="gallery-caption">Donald W. Furler Collection</p>
+            </a>
+            <!-- GRUBER !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67250&ip=1" class="gallery-item">
+                <img src="gallery-images/gruber-photo.jpg" alt="train photo with children running by John Gruber" class="gallery-image">
+                <img src="gallery-images/gruber-portrait.jpg" alt="portrait of John Gruber with camera" class="gallery-image-hover">
+                <p class="gallery-caption">John Gruber Collection</p>
+            </a>
+            <!-- HADLEY !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67262&ip=1" class="gallery-item">
+                <img src="gallery-images/hadley-photo.jpg" alt="train photo by Robert Hadley" class="gallery-image">
+                <img src="gallery-images/hadley-portrait.jpg" alt="portrait of Robert Hadley by train" class="gallery-image-hover">
+                <p class="gallery-caption">Robert A. Hadley Collection</p>
+            </a>
+            <!-- HAND !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67225&ip=1" class="gallery-item">
+                <img src="gallery-images/hand-photo.jpg" alt="train photo by Victor Hand" class="gallery-image">
+                <img src="gallery-images/hand-portrait.jpg" alt="portrait of Victor Hand signing a book" class="gallery-image-hover">
+                <p class="gallery-caption">Victor Hand Collection</p>
+            </a>
+            <!-- ILLMAN !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67248&ip=1" class="gallery-item">
+                <img src="gallery-images/illman-photo.jpg" alt="train photo by John Illman" class="gallery-image">
+                <img src="gallery-images/illman-portrait.jpg" alt="portrait of John Illman in a cab" class="gallery-image-hover">
+                <p class="gallery-caption">John C. Illman Collection</p>
+            </a>
+            <!-- KING !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67254&ip=1" class="gallery-item">
+                <img src="gallery-images/king-photo.jpg" alt="train photo by Leo King" class="gallery-image">
+                <img src="gallery-images/king-portrait.jpg" alt="portrait of Leo King in a cab" class="gallery-image-hover">
+                <p class="gallery-caption">Leo King Collection</p>
+            </a>
+            <!-- LAMB !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67245&ip=1" class="gallery-item">
+                <img src="gallery-images/lamb-photo.jpg" alt="train photo by J. Parker Lamb" class="gallery-image">
+                <img src="gallery-images/lamb-portrait.jpg" alt="portrait of J. Parker Lamb" class="gallery-image-hover" style="object-position: top;">
+                <p class="gallery-caption">J. Parker Lamb Collection</p>
+            </a>
+            <!--  MAINEY !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67235&ip=1" class="gallery-item">
+                <img src="gallery-images/mainey-photo.jpg" alt="train photo by David Mainey" class="gallery-image">
+                <img src="gallery-images/mainey-portrait.jpg" alt="portrait of David Mainey in a cab" class="gallery-image-hover">
+                <p class="gallery-caption">David T. Mainey Collection</p>
+            </a>
+            <!-- MCILWRAITH !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67267&ip=1" class="gallery-item">
+                <img src="gallery-images/mcilwraith-photo.jpg" alt="train photo by Thomas McIlwraith" class="gallery-image">
+                <img src="gallery-images/mcilwraith-portrait.jpg" alt="portrait of Thomas McIlwraith" class="gallery-image-hover" style="object-position: top;">
+                <p class="gallery-caption">Thomas F. McIlwraith Collection</p>
+            </a>
+            <!-- POSNER !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67244&ip=1" class="gallery-item">
+                <img src="gallery-images/posner-photo.jpg" alt="train photo by Henry Posner III" class="gallery-image">
+                <img src="gallery-images/posner-portrait.jpg" alt="portrait of Henry Posner III" class="gallery-image-hover">
+                <p class="gallery-caption">Henry Posner III Collection</p>
+            </a>
+            <!-- ROSE !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67266&ip=1" class="gallery-item">
+                <img src="gallery-images/rose-photo.jpg" alt="train photo by Ted Rose" class="gallery-image">
+                <img src="gallery-images/rose-portrait.jpg" alt="group photo including Ted Rose" class="gallery-image-hover" style="object-position: top;">
+                <p class="gallery-caption">Ted Rose Collection</p>
+            </a>
+            <!-- SHAUGHNESSY !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67247&ip=1" class="gallery-item">
+                <img src="gallery-images/shaughnessy-photo.jpg" alt="train photo by Jim Shaughnessy" class="gallery-image">
+                <img src="gallery-images/shaughnessy-portrait.jpg" alt="portrait of Jim Shaughnessy" class="gallery-image-hover" style="object-position: top;">
+                <p class="gallery-caption">Jim Shaughnessy Collection</p>
+            </a>
+            <!-- SPRINGER !-->
+            <a href="https://railphoto.historyit.com/search-interfaces/search/digital-museum--staging/0/1/1/1?rq%5B0%5D=67237&ip=1" class="gallery-item">
+                <img src="gallery-images/springer-photo.jpg" alt="train photo by Fred Springer" class="gallery-image">
+                <img src="gallery-images/springer-portrait.jpg" alt="portrait of Fred Springer leaning out of a train" class="gallery-image-hover">
+                <p class="gallery-caption">Fred M. Springer Collection</p>
+            </a>
+        </div>
+        <footer>
+            <p>
+                <a href="https://railphoto.historyit.com/public-sites/contact/digital-museum--staging">Contact Us</a>with Questions or Comments
+            </p>
+            <br>
+            <p>
+                <b>Copyright © 2025 Center for Railroad Photography and Art. For more information on usage and permissions, see our website:<a href="https://railphoto-art.org/collections/" target="_blank">https://railphoto-art.org/collections/</a>
+                </b>
+            </p>
+        </footer>
+        <script>
+            function myFunction() {
+              var x = document.getElementById("myTopnav");
+              if (x.className === "topnav") {
+                x.className += " responsive";
+              } else {
+                x.className = "topnav";
+              }
+            }
+            																																											
+        </script>
+    </body>
 </html>
