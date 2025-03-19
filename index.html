@@ -188,12 +188,18 @@
             position: relative;
             }
             .topnav #close-icon {
-            display: flex;
+            display: block;
+			padding:0;
+			margin:0;
+			margin-left:-8px;
+			background-color: white;
             color: #800000;
             text-decoration: none;
             font-size: 26px;
             font-weight: 400;
             }
+			
+
             .topnav.responsive ul {
             display: block;
             color: white;
@@ -206,9 +212,6 @@
             background-color: white;
             margin-left: 20px;
             }
-            .topnav.responsive ul li {
-            border-left: 3px solid #800000;
-            }
             .topnav.responsive ul li a{
             color: black;
             font-size: 1em;
@@ -220,6 +223,8 @@
             .topnav.responsive ul li a:hover{
             color: #800000;
             }
+			.red-border {
+			border-left: 3px solid #800000;
             }
         </style>
     </head>
@@ -230,15 +235,15 @@
                 <img src="https://railphoto-art.org/wp-content/uploads/2025/03/logo-1.png" alt="CRP&A"/>
                 </a>
                 <ul>
-                    <li>
+                    <li id="close">
                         <a href="javascript:void(0);" id="close-icon" onclick="myFunction()">&#10005;</a>
-                    <li>
+                    <li class="red-border">
                         <a href="https://railphoto.historyit.com/public-sites/explore/digital-museum--staging?hsxezn=kezfcv">Explore Topics</a>&vert;
                     </li>
-                    <li>
+                    <li class="red-border">
                         <a href="https://railphoto.historyit.com/public-sites/gallery/digital-museum--staging/21?hsxezn=kezfcv">Browse Images</a>&vert;
                     </li>
-                    <li>
+                    <li  class="red-border">
                         <a href="https://railphotoart.github.io/collections-page/">Browse Collections</a>
                     </li>
                 </ul>
@@ -354,11 +359,11 @@
         </div>
         <footer>
             <p>
-                <a href="https://railphoto.historyit.com/public-sites/contact/digital-museum--staging">Contact Us</a> with Questions or Comments
+                <a href="https://railphoto.historyit.com/public-sites/contact/digital-museum--staging">Contact Us</a>with Questions or Comments
             </p>
             <br>
             <p>
-                <b>Copyright © 2025 Center for Railroad Photography and Art. For more information on usage and permissions, see our website: <a href="https://railphoto-art.org/collections/" target="_blank">https://railphoto-art.org/collections/</a>
+                <b>Copyright © 2025 Center for Railroad Photography and Art. For more information on usage and permissions, see our website:<a href="https://railphoto-art.org/collections/" target="_blank">https://railphoto-art.org/collections/</a>
                 </b>
             </p>
         </footer>
